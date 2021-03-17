@@ -58,6 +58,7 @@ public class QRCode {
 
     try {
       File imageFile = new File(fileName);
+      imageFile.mkdirs();
       ImageIO.write(toImage(), fileFormat, imageFile);
       return imageFile;
     } catch (IOException e) {

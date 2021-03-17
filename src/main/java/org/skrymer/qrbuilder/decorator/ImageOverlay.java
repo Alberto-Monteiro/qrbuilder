@@ -33,6 +33,17 @@ public class ImageOverlay implements Decorator<BufferedImage> {
     return new ImageOverlay(overlay, overlayTransparency, overlayToQRCodeRatio);
   }
 
+  /**
+   * @param overlay - the image to be over rendered on top of the qrcode
+   *
+   * It's safe to add a overlay that takes up more than 25%, if the transparency is less than .20
+   *
+   * @throws IllegalArgumentException - if the overlay is null
+   */
+  public static Decorator<BufferedImage> addImageOverlay(BufferedImage overlay){
+    return new ImageOverlay(overlay, null, null);
+  }
+
   private ImageOverlay(BufferedImage overlay, Float overlayTransparency, Float overlayToQRCodeRatio){
     if(overlay == null) {
       throw new IllegalArgumentException("Overlay is required");
@@ -68,7 +79,7 @@ public class ImageOverlay implements Decorator<BufferedImage> {
 
     BufferedImage imageBuff = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_ARGB);
     Graphics g = imageBuff.createGraphics();
-    g.drawImage(overlay.getScaledInstance(scaledWidth, scaledHeight, BufferedImage.SCALE_SMOOTH), 0, 0, new Color(0,0,0), null);
+    g.drawImage(overlay.getScaledInstance(scaledWidth, scaledHeight, BufferedImage.SCALE_SMOOTH), 0, 0, Color.white, null);
     g.dispose();
 
     return imageBuff;

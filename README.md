@@ -10,48 +10,50 @@ Create a QRCode with dimensions 250*250, a image overlay and some data:
 ```java
 package org.skrymer.qrbuilder;
 
+import org.skrymer.qrbuilder.decorator.ColoredQRCode;
+import org.skrymer.qrbuilder.decorator.ImageOverlay;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
-import static org.skrymer.qrbuilder.decorator.ImageOverlay.*;
-import static org.skrymer.qrbuilder.decorator.ColoredQRCode.colorizeQRCode;
+import java.nio.charset.StandardCharsets;
 
 public class Main {
-  static final float TRANSPARENCY = 0.25f;
-  static final float OVERLAY_RATIO = 1f;
-  static final int WIDTH = 250;
-  static final int HEIGHT = 250;
+    public static final int WIDTH = 250;
+    public static final int HEIGHT = 250;
 
-  public static void main(String[] args) {
-    QRCode.ZXingBuilder.build(builder ->
-        builder.withSize(WIDTH, HEIGHT)
-              .and()
-            .withData("The answer is 42")
-              .and()
-            .withDecorator(colorizeQRCode(Color.green.darker()))
-              .and()
-            .withDecorator(addImageOverlay(readImage("src/test/resources/images/skull_bw.png"), TRANSPARENCY, OVERLAY_RATIO))
-              .and()
-            .doVerify(true)
+    private static final String youtube = "bit.ly/3tlkhSO";
 
-    ).toFile("./qrCode.png", "PNG");
-  }
-
-  static BufferedImage readImage(String path) {
-    try {
-      return ImageIO.read(new File(path));
-    } catch (IOException e) {
-      throw new RuntimeException(e);
+    public static void main(String[] args) {
+        QRCode.ZXingBuilder.build(builder ->
+                builder
+                        .withSize(WIDTH, HEIGHT)
+                        .and()
+                        .withData(youtube)
+                        .and()
+                        .withDecorator(ColoredQRCode.colorizeQRCode(Color.decode("#FF0000")))
+                        .and()
+                        .withDecorator(ImageOverlay.addImageOverlay(readImage("src/test/resources/images/IconYouTube.png")))
+                        .and()
+                        .withCharSet(StandardCharsets.UTF_8)
+                        .verify(true)
+        ).toFile("./qrCode/youtube.png", "PNG");
     }
-  }
+
+    public static BufferedImage readImage(String path) {
+        try {
+            return ImageIO.read(new File(path));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 ```
 The following qrCode is then generated:
 
-![alt text](https://raw.github.com/wiki/skrymer/qrbuilder/images/qrcode.png "QRCode")
+![alt text](./qrCode/youtube.png "QRCode")
 
 ## Decorators
 
