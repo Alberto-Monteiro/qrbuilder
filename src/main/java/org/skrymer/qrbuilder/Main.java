@@ -14,9 +14,9 @@ public class Main {
     public static final int WIDTH = 250;
     public static final int HEIGHT = 250;
 
-    private static final String linkedin = "bit.ly/30WXYq9";
-    private static final String gitHub = "bit.ly/3s7QIDO";
-    private static final String youtube = "bit.ly/3tlkhSO";
+    private static final String linkedin = "bit.ly/3fqAoux";
+    private static final String gitHub = "bit.ly/3m5AnNY";
+    private static final String youtube = "bit.ly/2QMOCeV";
 
     public static void main(String[] args) {
         QRCode.ZXingBuilder.build(builder ->
@@ -44,7 +44,7 @@ public class Main {
                         .withDecorator(ImageOverlay.addImageOverlay(readImage("src/test/resources/images/IconGitHub.png")))
                         .and()
                         .withCharSet(StandardCharsets.UTF_8)
-                        .verify(true)
+                        .verify(false)
         ).toFile("./qrCode/gitHub.png", "PNG");
 
         QRCode.ZXingBuilder.build(builder ->

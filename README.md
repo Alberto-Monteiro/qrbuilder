@@ -24,7 +24,7 @@ public class Main {
     public static final int WIDTH = 250;
     public static final int HEIGHT = 250;
 
-    private static final String youtube = "bit.ly/3tlkhSO";
+    private static final String youtube = "bit.ly/2QMOCeV";
 
     public static void main(String[] args) {
         QRCode.ZXingBuilder.build(builder ->
